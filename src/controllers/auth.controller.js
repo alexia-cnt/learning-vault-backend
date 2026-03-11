@@ -9,6 +9,15 @@ exports.register = async (req, res) => {
   try {
     const { name, email, password } = req.body;
 
+    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/;
+    
+    if (!passwordRegex.test(password)) {
+      return res.status(400).json({
+        message:
+          "La contraseña debe tener al menos 8 caracteres, una mayúscula, una minúscula y un número."
+      });
+    }
+
     const existingUser = await User.findOne({ email })
     if (existingUser) {
       return res.status(400).json({ message: "El email ya se encuentra registrado" })
