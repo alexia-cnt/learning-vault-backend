@@ -10,7 +10,7 @@ const transporter = nodemailer.createTransport({
 });
 
 const sendVerificationEmail = async (email, token) => {
-  const verificationUrl = `http://localhost:4000/api/auth/verify/${token}`;
+  const verificationLink = `${process.env.API_URL}/api/auth/verify/${token}`;
 
   await transporter.sendMail({
     from: '"Learning Vault" <no-reply@learningvault.com>',
